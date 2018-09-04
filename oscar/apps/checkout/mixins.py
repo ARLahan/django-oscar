@@ -165,8 +165,9 @@ class OrderPlacementMixin(CheckoutSessionMixin):
         into their address book.
         """
         if self.request.user.is_authenticated():
-            addr_data['user_id'] = self.request.user.id
-            user_addr = UserAddress(**addr_data)
+            user_addr_data = addr_data.copy()
+            user_addr_data['user_id'] = self.request.user.id
+            user_addr = UserAddress(**user_addr_data)
             # Check that this address isn't already in the db as we don't want
             # to fill up the customer address book with duplicate addresses
             try:
