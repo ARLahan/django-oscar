@@ -172,7 +172,7 @@ class OrderPlacementMixin(CheckoutSessionMixin):
             # to fill up the customer address book with duplicate addresses
             try:
                 UserAddress._default_manager.get(
-                    hash=user_addr.generate_hash())
+                    hash=user_addr.generate_hash(), user_id=user_addr.user.id)
             except ObjectDoesNotExist:
                 user_addr.save()
 
